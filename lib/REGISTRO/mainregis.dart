@@ -2,8 +2,32 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class registro extends StatelessWidget {
+class registro extends StatefulWidget {
   const registro() : super();
+
+  @override
+  State<registro> createState() => _registroState();
+}
+
+class _registroState extends State<registro> {
+  Future<CameraController>? controlador;
+
+  Future<CameraController> cargar() async {
+    final cameras = await availableCameras();
+    final firstCamera = cameras[1];
+    CameraController elpepe = CameraController(
+      // Get a specific camera from the list of available cameras.
+      firstCamera,
+      ResolutionPreset.values.last,
+    );
+    await elpepe.initialize();
+    return elpepe;
+  }
+
+  @override
+  void initState() {
+    controlador = cargar();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -2,6 +2,10 @@ import 'dart:developer';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'DOWNBAR PAGES/CALENDARIO/maincalen.dart';
+import 'DOWNBAR PAGES/LISTADO/mainlist.dart';
+import 'DOWNBAR PAGES/HOME/mainhome.dart';
+import 'REGISTRO/mainregis.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,69 +21,44 @@ class Test extends StatefulWidget {
 }
 
 class _TestState extends State<Test> {
-  Future<CameraController>? controlador;
+  int _seleccionao = 0;
 
-  Future<CameraController> cargar() async {
-    final cameras = await availableCameras();
-    log(cameras.length.toString());
-    final firstCamera = cameras[1];
-    CameraController elpepe = CameraController(
-      // Get a specific camera from the list of available cameras.
-      firstCamera,
-      ResolutionPreset.values.last,
-    );
-    await elpepe.initialize();
-    return elpepe;
-  }
-
-  @override
-  void initState() {
-    controlador = cargar();
+  void _tocao(int index) {
+    setState(() {
+      _seleccionao = index;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     String botonsito = 'no me han presionao';
+    List<Widget> paginas = [
+      HomePage(),
+      Home(),
+      Calendar(),
+    ];
+
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person, color: Colors.white), label: 'Lista '),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: Colors.white), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: Colors.white), label: 'Calendario'),
-        ],
-        backgroundColor: Colors.black,
-      ),
-
-      appBar: AppBar(
-        title: const Text('ASISTENCIA'),
-        centerTitle: true,
-        backgroundColor: Colors.lightBlue,
-      ),
-      body: Placeholder(),
-
-      //  const Center(
-      //   child:
-      //       // Text(
-      //       //   'santa cachuca',
-      //       //   style: TextStyle(
-      //       //     fontSize: 20.0,
-      //       //     fontWeight: FontWeight.bold,
-      //       //     letterSpacing: 2.0,
-      //       //     color: Colors.red,
-      //       //   ),
-      //       // ),
-      //       Image(
-      //     image: AssetImage('hinh-nen-dien-thoai-chat.jpg'),
-      //   ),
-      // ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Text('add'),
-        backgroundColor: Colors.blue,
-      ),
-    );
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person, color: Colors.white), label: 'Lista '),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home, color: Colors.white), label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.calendar_today, color: Colors.white),
+                label: 'Calendario'),
+          ],
+          selectedItemColor: Colors.white,
+          backgroundColor: Colors.lightBlue,
+          currentIndex: _seleccionao,
+          onTap: (value) => {_tocao(value)},
+        ),
+        appBar: AppBar(
+          title: const Text('Asistencia Proyectos'),
+          centerTitle: true,
+          backgroundColor: Colors.lightBlue,
+        ),
+        body: paginas[_seleccionao]);
   }
 }
