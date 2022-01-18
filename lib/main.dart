@@ -35,7 +35,7 @@ class _TestState extends State<Test> {
     List<Widget> paginas = [
       HomePage(),
       Home(),
-      Calendar(),
+      MyApp(),
     ];
 
     return Scaffold(
