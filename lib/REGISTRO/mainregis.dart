@@ -1,3 +1,5 @@
+import 'package:app_patito/REGISTRO/COMPONENTES/maincamera.dart';
+import 'package:app_patito/UTILIDADES/dimensiones.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -10,61 +12,47 @@ class registro extends StatefulWidget {
 }
 
 class _registroState extends State<registro> {
-  Future<CameraController>? controlador;
-
-  Future<CameraController> cargar() async {
-    final cameras = await availableCameras();
-    final firstCamera = cameras[1];
-    CameraController elpepe = CameraController(
-      // Get a specific camera from the list of available cameras.
-      firstCamera,
-      ResolutionPreset.values.last,
-    );
-    await elpepe.initialize();
-    return elpepe;
-  }
-
-  @override
-  void initState() {
-    controlador = cargar();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 400,
-        height: 900,
+        width: Dimensiones.bloqueAnchura * 90,
+        height: Dimensiones.bloqueAltura * 100,
         child: Column(
           children: [
+            SizedBox(
+              width: Dimensiones.bloqueAnchura * 35,
+              height: Dimensiones.bloqueAltura * 3,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.lightBlue[200],
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(),
+                      Text('Resgitro de  asistencia'),
+                      Icon(Icons.app_registration)
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            MyStatefulWidget(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(width: 30),
-                Text("ELPEPE PRIMERO"),
-                Icon(Icons.access_alarm),
+                SizedBox(),
+                Camara(),
+                Column(
+                  children: [
+                    botonese(),
+                  ],
+                ),
               ],
             ),
-            Text("abajo de mi"),
-            FutureBuilder(
-              future: controlador,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasData) {
-                    CameraController valor = snapshot.data as CameraController;
-
-                    return Container(
-                        child: SizedBox(
-                            width: 100,
-                            height: 100,
-                            child: valor.buildPreview()));
-                  } else
-                    return Text("Controlador vacio");
-                } else
-                  return Text("Sin cargar");
-              },
-            ),
-            Text("Arriba de mi culo"),
             Center(
               child: botonese(),
             ),
@@ -125,5 +113,47 @@ class _botoneseState extends State<botonese> {
         //   size: 110.0,
         // ),
         );
+  }
+}
+
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({key}) : super();
+
+  @override
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  String dropdownValue = 'Entrada';
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      value: dropdownValue,
+      icon: const Icon(Icons.list),
+      elevation: 16,
+      style: const TextStyle(color: Colors.blue),
+      underline: Container(
+        height: 2,
+        color: Colors.lightBlue,
+      ),
+      onChanged: (String? newValue) {
+        setState(() {
+          dropdownValue = newValue!;
+        });
+      },
+      alignment: AlignmentDirectional.center,
+      items: <String>[
+        'Entrada',
+        'Despacho a proyectos',
+        'Supervisión',
+        'Salida'
+      ].map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    );
   }
 }

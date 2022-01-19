@@ -33,7 +33,7 @@ class _TestState extends State<Test> {
   Widget build(BuildContext context) {
     String botonsito = 'no me han presionao';
     List<Widget> paginas = [
-      HomePage(),
+      Listhome(),
       Home(),
       MyApp(),
     ];
