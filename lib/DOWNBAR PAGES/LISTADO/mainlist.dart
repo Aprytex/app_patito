@@ -2,6 +2,7 @@ import 'package:app_patito/DOWNBAR%20PAGES/LISTADO/COMPONENTES/Listadeplegable.d
 import 'package:app_patito/UTILIDADES/dimensiones.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'COMPONENTES/Listadeplegable.dart';
 
 class Listhome extends StatefulWidget {
   Listhome() : super();
@@ -16,18 +17,24 @@ class _ListhomeState extends State<Listhome> {
     return Column(
       children: [
         Container(
-            child: SizedBox(
-          height: Dimensiones.bloqueAltura * 30,
-          child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                title: Text('El pepe'),
-                leading: Text(index.toString()),
-              );
-            },
+          child: SizedBox(
+            height: Dimensiones.bloqueAltura * 20,
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  title: Text('El pepe'),
+                  leading: Text(index.toString()),
+                );
+              },
+            ),
           ),
-        )),
+        ),
+        FloatingActionButton(onPressed: () {
+          Navigator.push(this.context, MaterialPageRoute(builder: (context) {
+            return HomePage();
+          }));
+        }),
       ],
     );
   }
