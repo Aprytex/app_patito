@@ -30,11 +30,18 @@ class _ListhomeState extends State<Listhome> {
             ),
           ),
         ),
-        FloatingActionButton(onPressed: () {
-          Navigator.push(this.context, MaterialPageRoute(builder: (context) {
-            return HomePage();
-          }));
-        }),
+        FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              this.context,
+              MaterialPageRoute(builder: (context) {
+                return MyStatefulWidget();
+              }),
+            );
+          },
+          tooltip: 'Añadir registro',
+          child: Icon(Icons.person_add_alt),
+        ),
       ],
     );
   }

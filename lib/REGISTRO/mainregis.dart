@@ -20,26 +20,6 @@ class _registroState extends State<registro> {
         height: Dimensiones.bloqueAltura * 100,
         child: Column(
           children: [
-            SizedBox(
-              width: Dimensiones.bloqueAnchura * 35,
-              height: Dimensiones.bloqueAltura * 3,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.lightBlue[200],
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(),
-                      Text('Resgitro de  asistencia'),
-                      Icon(Icons.app_registration)
-                    ],
-                  ),
-                ),
-              ),
-            ),
             MyStatefulWidget(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,7 +28,30 @@ class _registroState extends State<registro> {
                 Camara(),
                 Column(
                   children: [
+                    Center(child: Text('Nombre')),
+                    SizedBox(
+                      height: Dimensiones.bloqueAltura * 1,
+                    ),
+                    SizedBox(
+                        width: Dimensiones.bloqueAnchura * 10,
+                        height: Dimensiones.bloqueAltura * 1,
+                        child: AutocompleteBasicUserExample()),
+                    SizedBox(
+                      height: Dimensiones.bloqueAltura * 1,
+                    ),
                     botonese(),
+                    SizedBox(
+                      height: Dimensiones.bloqueAltura * 1,
+                    ),
+                    Center(
+                      child: Text('Proyecto'),
+                    ),
+                    SizedBox(
+                      height: Dimensiones.bloqueAltura * 1,
+                    ),
+                    Center(
+                      child: Text('Aqui va a ir el nombre del proyecto'),
+                    ),
                   ],
                 ),
               ],
@@ -73,6 +76,7 @@ class _registroState extends State<registro> {
               color: Colors.red,
               child: Text('holi'),
             ),
+            AutocompleteBasicUserExample()
           ],
         ),
       ),
@@ -154,6 +158,83 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           child: Text(value),
         );
       }).toList(),
+    );
+  }
+}
+
+class AutocompleteExampleApp extends StatelessWidget {
+  const AutocompleteExampleApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Autocomplete Basic User'),
+        ),
+        body: const Center(
+          child: AutocompleteBasicUserExample(),
+        ),
+      ),
+    );
+  }
+}
+
+@immutable
+class User {
+  const User({
+    required this.email,
+    required this.name,
+  });
+
+  final String email;
+  final String name;
+
+  @override
+  String toString() {
+    return '$name, $email';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other.runtimeType != runtimeType) {
+      return false;
+    }
+    return other is User && other.name == name && other.email == email;
+  }
+
+  @override
+  int get hashCode => hashValues(email, name);
+}
+
+class AutocompleteBasicUserExample extends StatelessWidget {
+  const AutocompleteBasicUserExample({Key? key}) : super(key: key);
+
+  static const List<User> _userOptions = <User>[
+    User(name: 'Alice', email: 'alice@example.com'),
+    User(name: 'Bob', email: 'bob@example.com'),
+    User(name: 'Charlie', email: 'charlie123@gmail.com'),
+  ];
+
+  static String _displayStringForOption(User option) => option.name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Autocomplete<User>(
+      displayStringForOption: _displayStringForOption,
+      optionsBuilder: (TextEditingValue textEditingValue) {
+        if (textEditingValue.text == '') {
+          return const Iterable<User>.empty();
+        }
+        return _userOptions.where((User option) {
+          return option
+              .toString()
+              .contains(textEditingValue.text.toLowerCase());
+        });
+      },
+      onSelected: (User selection) {
+        debugPrint('You just selected ${_displayStringForOption(selection)}');
+      },
     );
   }
 }

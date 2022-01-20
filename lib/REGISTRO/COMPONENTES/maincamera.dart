@@ -37,9 +37,12 @@ class _CamaraState extends State<Camara> {
               CameraController valor = snapshot.data as CameraController;
 
               return SizedBox(
-                  width: Dimensiones.bloqueAnchura * 15,
-                  height: Dimensiones.bloqueAltura * 10,
-                  child: valor.buildPreview());
+                width: Dimensiones.bloqueAnchura * 15,
+                height: Dimensiones.bloqueAltura * 10,
+                child: GestureDetector(
+                    child: valor.buildPreview(),
+                    onTap: () {}), //aqui toma la foto
+              );
             } else
               return Text("Controlador vacio");
           } else
