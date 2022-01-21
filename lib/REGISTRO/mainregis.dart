@@ -26,57 +26,44 @@ class _registroState extends State<registro> {
               children: [
                 SizedBox(),
                 Camara(),
-                Column(
-                  children: [
-                    Center(child: Text('Nombre')),
-                    SizedBox(
-                      height: Dimensiones.bloqueAltura * 1,
-                    ),
-                    SizedBox(
-                        width: Dimensiones.bloqueAnchura * 10,
-                        height: Dimensiones.bloqueAltura * 1,
-                        child: AutocompleteBasicUserExample()),
-                    SizedBox(
-                      height: Dimensiones.bloqueAltura * 1,
-                    ),
-                    botonese(),
-                    SizedBox(
-                      height: Dimensiones.bloqueAltura * 1,
-                    ),
-                    Center(
-                      child: Text('Proyecto'),
-                    ),
-                    SizedBox(
-                      height: Dimensiones.bloqueAltura * 1,
-                    ),
-                    Center(
-                      child: Text('Aqui va a ir el nombre del proyecto'),
-                    ),
-                  ],
-                ),
+                SizedBox(),
               ],
+            ),
+            SizedBox(
+              height: Dimensiones.bloqueAltura * 0.5,
+            ),
+            Center(child: Text('Nombre del trabajador')),
+            SizedBox(
+              height: Dimensiones.bloqueAltura * 0.5,
+            ),
+            AutocompleteBasicUserExample(),
+            SizedBox(
+              height: Dimensiones.bloqueAltura * 0.5,
+            ),
+            SizedBox(
+              height: Dimensiones.bloqueAltura * 0.5,
+            ),
+            Center(
+              child: Text('Proyecto asignado'),
+            ),
+            SizedBox(
+              height: Dimensiones.bloqueAltura * 0.5,
+            ),
+            Center(
+              child: Text('Aqui va a ir el nombre del proyecto'),
+            ),
+            SizedBox(
+              height: Dimensiones.bloqueAltura * 0.5,
+            ),
+            Center(
+              child: Text('Hora que se registra'),
             ),
             Center(
               child: botonese(),
             ),
             SizedBox(
-              height: 40,
+              height: Dimensiones.bloqueAltura * 0.5,
             ),
-            Center(
-              child: IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.alternate_email),
-              ),
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            Container(
-              padding: EdgeInsets.all(20),
-              color: Colors.red,
-              child: Text('holi'),
-            ),
-            AutocompleteBasicUserExample()
           ],
         ),
       ),

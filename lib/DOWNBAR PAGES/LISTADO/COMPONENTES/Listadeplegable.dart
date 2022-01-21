@@ -1,5 +1,6 @@
 import 'package:app_patito/REGISTRO/mainregis.dart';
 import 'package:flutter/material.dart';
+import 'package:clock/clock.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp() : super();
