@@ -6,7 +6,7 @@ import 'COMPONENTES/pages/events_example.dart';
 import 'COMPONENTES/pages/multi_example.dart';
 import 'COMPONENTES/pages/range_example.dart';
 
-class MyApp extends StatelessWidget {
+class MyAppo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -58,6 +58,15 @@ class _registroState extends State<registro> {
             Center(
               child: Text('Hora que se registra'),
             ),
+            Row(
+              children: [
+                Text('Estado: '),
+                MyStatefulyWidget(),
+              ],
+            ),
+            SizedBox(
+              height: Dimensiones.bloqueAltura * 0.5,
+            ),
             Center(
               child: botonese(),
             ),
@@ -221,6 +230,62 @@ class AutocompleteBasicUserExample extends StatelessWidget {
       },
       onSelected: (User selection) {
         debugPrint('You just selected ${_displayStringForOption(selection)}');
+      },
+    );
+  }
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  static const String _title = 'Flutter Code Sample';
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: _title,
+      home: Scaffold(
+        appBar: AppBar(title: const Text(_title)),
+        body: const Center(
+          child: MyStatefulWidget(),
+        ),
+      ),
+    );
+  }
+}
+
+class MyStatefulyWidget extends StatefulWidget {
+  const MyStatefulyWidget({Key? key}) : super(key: key);
+
+  @override
+  State<MyStatefulyWidget> createState() => _MyStatefulyWidgetState();
+}
+
+class _MyStatefulyWidgetState extends State<MyStatefulyWidget> {
+  bool isChecked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    Color getColor(Set<MaterialState> states) {
+      const Set<MaterialState> interactiveStates = <MaterialState>{
+        MaterialState.pressed,
+        MaterialState.hovered,
+        MaterialState.focused,
+      };
+      if (states.any(interactiveStates.contains)) {
+        return Colors.blue;
+      }
+      return Colors.red;
+    }
+
+    return Checkbox(
+      checkColor: Colors.white,
+      fillColor: MaterialStateProperty.resolveWith(getColor),
+      value: isChecked,
+      onChanged: (bool? value) {
+        setState(() {
+          isChecked = value!;
+        });
       },
     );
   }
