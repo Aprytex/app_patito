@@ -44,7 +44,7 @@ dependencies:
   fluttertoast: ^8.0.8
   image_gallery_saver: ^1.7.1
   permission_handler: ^8.3.0
-  flutter_svg: ^0.19.3
+
 
 dev_dependencies:
   flutter_test:
@@ -69,8 +69,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-assets:
-  - assets/
+  assets:
+    - imagenes/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

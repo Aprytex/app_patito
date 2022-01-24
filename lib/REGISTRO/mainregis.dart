@@ -60,6 +60,9 @@ class _registroState extends State<registro> {
             ),
             Row(
               children: [
+                SizedBox(
+                  width: Dimensiones.bloqueAnchura * 15,
+                ),
                 Text('Estado: '),
                 MyStatefulyWidget(),
               ],
